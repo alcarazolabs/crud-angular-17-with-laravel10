@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <h5 class="mt-2">Registro de Personas</h5>
+
+      <form [formGroup]="form"  (ngSubmit)="onSubmit()">
+       
+            <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Nombres</label>
+            <div class="col-sm-10">
+                <input type="text"
+                    class="form-control"
+                    formControlName="fullname"
+                    [ngClass]="{ 'is-invalid': submitted && f['fullname'].errors }" />
+                
+                @if (submitted && f['fullname'].errors) {
+                    <div class="invalid-feedback">
+                        @if (f['fullname'].errors['required']) {
+                        <div>Los nombres son requeridos</div>
+                        }
+                    </div>
+                    }
+            </div>
+           
+
+            </div>
+
+            <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">DNI</label>
+            <div class="col-sm-10">
+                <input type="text"
+                 class="form-control"
+                  formControlName="dni"
+                  [ngClass]="{ 'is-invalid': submitted && f['dni'].errors }" />
+
+                @if (submitted && f['dni'].errors) {
+                    <div class="invalid-feedback">
+                      @if (f['dni'].errors['required']) {
+                      <div>El dni es requerido</div>
+                      }
+                      @if (f['dni'].errors['minlength']) {
+                      <div>El dni debe de tener minimo 8 caracteres</div>
+                      }
+                    @if (f['dni'].errors['maxlength']) {
+                      <div>El dni debe de tener maximo 8 caracteres</div>
+                      }
+                    </div>
+                    }
+            </div>
+            </div>
+
+            <fieldset class="row mb-3">
+            <legend class="col-form-label col-sm-2 pt-0">Género</legend>
+            <div class="col-sm-10">
+                <div class="form-check">
+                <input 
+                    formControlName="genero"
+                    class="form-check-input"
+                    type="radio"
+                    name="genero"
+                    value="Masculino"
+                    [ngClass]="{ 'is-invalid': submitted && f['genero'].errors }"
+                />
+                <label class="form-check-label"> Masculino </label>
+                </div>
+                <div class="form-check">
+                <input
+                    formControlName="genero"
+                    name="genero"
+                    class="form-check-input"
+                    type="radio"
+                    value="Femenino"
+                    [ngClass]="{ 'is-invalid': submitted && f['genero'].errors }"
+                />
+                <label class="form-check-label"> Femenino </label>
+
+                    
+                @if (submitted && f['genero'].errors) {
+                    <div class="invalid-feedback">
+                      @if (f['genero'].errors['required']) {
+                      <div>El gener es requerido</div>
+                      }
+                    </div>
+                }
+
+                </div>
+            </div>
+            </fieldset>
+
+            <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Ciudad</label>
+            <div class="col-sm-10">
+                
+                <select 
+                    formControlName="city"
+                     class="form-select"
+                     aria-label="Default select example"
+                     [ngClass]="{ 'is-invalid': submitted && f['city'].errors }"
+                     >
+                    <option value="" selected>Seleccionar ciudad</option>
+                    @for (city of citiesList; track city.id) {
+                        <option value="{{city.name}}"> {{city.name}} </option>
+                    }
+                    
+                </select>
+            </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-10">
+                    <input
+                        type="checkbox"
+                        formControlName="acceptTerms"
+                        class="form-check-input"
+                        [ngClass]="{ 'is-invalid': submitted && f['acceptTerms'].errors }"
+                    />
+                    <label for="acceptTerms" class="form-check-label">
+                     &nbsp; Acepta los terminos?
+                    </label>
+                    @if (submitted && f['acceptTerms'].errors) {
+                    <div class="invalid-feedback">Se requiere de aceptar los terminos</div>
+                    }
+                   
+                </div>
+                </div>
+
+
+
+            <button type="submit" class="btn btn-primary">Registrar</button>
+      </form>
+
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>

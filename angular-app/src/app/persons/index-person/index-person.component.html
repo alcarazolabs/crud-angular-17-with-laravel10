@@ -1,0 +1,45 @@
+<div class="container">
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col">Género</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <!-- Nota que aqui se ha agregado el pipe de la paginacion -->
+       @for (person of persons | paginate: { itemsPerPage: 5, currentPage: p, totalItems: total }; track person.id){
+
+         <tr>
+            <th scope="row">{{ person.id }}</th>
+            <td>{{ person.fullname }}</td>
+            <td>{{ person.dni }}</td>
+            <td>{{ person.city }}</td>
+            <td> @if(person.genero=="Masculino")  { Masculino } @else { Femenino } </td>
+            <td> 
+              <a title="Editar registro" routerLink="/persons/{{ person.id }}/edit" class="btn btn-success btn-sm">Editar </a>
+              &nbsp;
+              <button (click)="deletePerson(person.id)" class="btn btn-danger btn-sm"> Eliminar</button>
+            </td>
+          </tr>
+       
+        
+        }@empty {
+            <p>No hay datos.</p>
+        }     
+          
+          
+        </tbody>
+      </table>
+
+      <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+
+
+
+</div>
